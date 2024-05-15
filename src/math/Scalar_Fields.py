@@ -7,7 +7,7 @@ class scalar_field(field):
         ''' Check for dimension and reshape
         '''
 
-
+    '''Use numpy functions, but returns scalar, kind of confusing myself here'''
     def __add__(self, other) -> scalar_field:
         
         # Check field_size logic
@@ -16,7 +16,7 @@ class scalar_field(field):
 
         # If field sizes are the same, add the values using np.add
 
-        if shape1 == shape2
+        if shape1 == shape2:
             return np.add(self,other)
 
     def reshape_to_scalar(self) -> scalar_field:
