@@ -11,3 +11,18 @@ def generate_sample_grid(x_span, y_span, num_x_coords, num_y_coords):
 # Test imports
 def test_imports():
     assert True
+
+# Check if span of x and y values is correct:
+def test_check_span():
+    
+    # Generates a grid
+    grid = generate_sample_grid(7, 7, 7, 7)
+
+    intended_x_span = grid.x_span
+    intended_y_span = grid.y_span
+
+    # Unpacks the tupe of grids returned by make_grid()
+    x_grid, y_grid = grid.make_grid()
+   
+    assert len(x_grid) == intended_x_span
+    assert len(y_grid) == intended_y_span
