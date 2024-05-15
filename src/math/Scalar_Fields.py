@@ -1,22 +1,13 @@
-import numpy as np
-from src.math.Fields import field
+from src.math.Fields import Field
 
-class scalar_field(field):
+class ScalarField(Field):
 
-    def __init__(self, field : np.ndarray) -> None:
-        ''' Check for dimension and reshape
-        '''
+    '''
+    Inherits Field class
+    
+    Check for last value potentially for 1      
+    Error Checking may be added later on 
+    '''
 
-    '''Use numpy functions, but returns scalar, kind of confusing myself here'''
-    def __add__(self, other) -> scalar_field:
-        
-        # Check field_size logic
-        shape1 = self.shape
-        shape2 = self.shape
-
-        # If field sizes are the same, add the values using np.add
-
-        if shape1 == shape2:
-            return np.add(self,other)
-
-    def reshape_to_scalar(self) -> scalar_field:
+    
+    

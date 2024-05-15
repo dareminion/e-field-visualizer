@@ -1,25 +1,29 @@
 import abc
 import numpy as np
 
-class field(abc.ABC):
+class Field(abc.ABC):
 
     ''' Abstract Base Class describing Fields Interface
     '''
 
-    @abc.abstractmethod
-    def __add__(self, other) -> field:
+    def __init__(self, field : np.ndarray) -> None:
+        
         '''
-        __add__ Method for fields
+        For interal functions to call the numpy array version of the field
+        for math purposes such as __add__.
+        '''
+        self._field = field
 
-        Requires a checking step before addition that is more than just class checking
-        Size of field is also required
-        '''
-        pass
 
-    @abc.abstractmethod
-    def shape(self) -> tuple:
-        '''
-        Inherit from numpy's arr.shape function
-        '''
+    def __add__(self, other) -> Field:
 
+       ''' 
+       Using numpy's .add function on the two numpy versions of a field that returns
+       the class of field
+       Error Checking not incorporated yet.
+       '''
+       return self.__class__(np.add(self._field , other._field))
+    
+
+    
         
