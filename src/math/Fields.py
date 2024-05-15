@@ -15,7 +15,7 @@ class Field(abc.ABC):
         self._field = field
 
 
-    def __add__(self, other) -> Field:
+    def __add__(self, other) -> 'Field':
 
        ''' 
        Using numpy's .add function on the two numpy versions of a field that returns
