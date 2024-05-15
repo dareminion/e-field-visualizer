@@ -21,5 +21,5 @@ class field(abc.ABC):
         '''
         Inherit from numpy's arr.shape function
         '''
-        
+
         

@@ -3,6 +3,11 @@ from src.math.Fields import field
 
 class scalar_field(field):
 
+    def __init__(self, field : np.ndarray) -> None:
+        ''' Check for dimension and reshape
+        '''
+
+
     def __add__(self, other) -> scalar_field:
         
         # Check field_size logic
@@ -13,3 +18,5 @@ class scalar_field(field):
 
         if shape1 == shape2
             return np.add(self,other)
+
+    def reshape_to_scalar(self) -> scalar_field:
