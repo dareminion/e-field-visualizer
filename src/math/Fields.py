@@ -1,13 +1,13 @@
 import abc
 import numpy as np
 
-class Fields(abc.ABC):
+class field(abc.ABC):
 
     ''' Abstract Base Class describing Fields Interface
     '''
 
     @abc.abstractmethod
-    def __add__(self, other) -> np.ndarray:
+    def __add__(self, other) -> field:
         '''
         __add__ Method for fields
 
@@ -15,5 +15,11 @@ class Fields(abc.ABC):
         Size of field is also required
         '''
         pass
+
+    @abc.abstractmethod
+    def shape(self) -> tuple:
+        '''
+        Inherit from numpy's arr.shape function
+        '''
         
         
