@@ -1,3 +1,5 @@
+import numpy as np
+
 class Grid:
 
     def __init__(self, x_span: int, y_span: int, x_spacing: int, num_y_points: int) -> None:
