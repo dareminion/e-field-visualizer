@@ -16,5 +16,18 @@ class Grid:
         # y - scaling
         self.y_spacing = num_y_points
 
-    def make_grid(self) -> None:
-        pass
+    def _grid_setup(self) -> tuple:
+        
+        # Determine min & max values
+        x_min, x_max = (self.x_span * -1) / 2, self.x_span / 2
+        y_min, y_max = (self.y_span * -1) / 2, self.y_span / 2
+
+        # Calculate number of points based on spacing
+        num_x_coords = int(self.x_span / self.x_spacing) + 1
+        num_y_coords = int(self.y_span / self.y_spacing) + 1
+
+        # Create x and y coordinates
+        x_coords = np.linspace(x_min, x_max, num_x_coords)
+        y_coords = np.linspace(y_min, y_max, num_y_coords)
+
+        return x_coords, y_coords
