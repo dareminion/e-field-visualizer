@@ -16,6 +16,7 @@ class Grid:
         # y - scaling
         self.y_spacing = num_y_points
 
+        
     def _grid_setup(self) -> tuple:
         
         # Determine min & max values
@@ -31,3 +32,17 @@ class Grid:
         y_coords = np.linspace(y_min, y_max, num_y_coords)
 
         return x_coords, y_coords
+
+
+    def make_grid(self) -> tuple:
+        
+        # Get x and y coordinates
+        x_coords, y_coords = self._grid_setup()
+
+        # Generate grid using np.meshgrid
+        x_grid, y_grid = np.meshgrid(x_coords, y_coords)
+
+        # # Use np.vstack to help visualize grid points (Could be useful later)
+        # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
+
+        return x_grid, y_grid
