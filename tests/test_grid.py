@@ -1,12 +1,12 @@
 # Testing Grid.py
 import pytest
 import numpy as np
-from src.Grid import Grid.py
+from src.grid.Grid import Grid
 
 # Generate Sample Grid
 def generate_sample_grid(x_span, y_span, num_x_coords, num_y_coords):
 
-    return Grid(7,7, 7, 7)
+    return Grid(7,7,7,7)
 
 # Test imports
 def test_imports():
@@ -21,7 +21,7 @@ def test_check_span():
     intended_x_span = grid.x_span
     intended_y_span = grid.y_span
 
-    # Unpacks the tupe of grids returned by make_grid()
+    # Unpacks the tuple of grids returned by make_grid()
     x_grid, y_grid = grid.make_grid()
    
     assert len(x_grid) == intended_x_span
@@ -35,7 +35,7 @@ def test_check_grid_size():
 
     intended_grid_size = (7, 7)
 
-    # Unpacks the tupe of grids returned by make_grid()
+    # Unpacks the tuple of grids returned by make_grid()
     x_grid, y_grid = grid.make_grid()
     x_size = x_grid.shape
     y_size = y_grid.shape
