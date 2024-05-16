@@ -19,4 +19,5 @@ jobs:
       - name: Test with basic tests
         run: |
           pip install pytest pytest
-          pytest test/tests.py
+          pip install numpy
+          pytest tests/tests.py
