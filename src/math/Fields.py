@@ -20,9 +20,15 @@ class Field(abc.ABC):
        ''' 
        Using numpy's .add function on the two numpy versions of a field that returns
        the class of field
-       Error Checking not incorporated yet.
+       
+       Error Checking:
+       If the shapes of the two fields are not the same, numpy raises a value error
+       When value error is raised, the original field is returned
        '''
-       return self.__class__(np.add(self._field , other._field))
+       try: 
+        return self.__class__(np.add(self._field , other._field))
+       except ValueError:
+          return self
     
 
     
