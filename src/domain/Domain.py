@@ -1,5 +1,8 @@
 import numpy as np
 from src.domain.Coordinates import Coordinates
+from src.physics.placeablesource import PlaceableSource
+from src.math.VectorFields import VectorField
+from src.math.ScalarFields import ScalarField
 
 class Domain:
 
@@ -37,4 +40,13 @@ class Domain:
         # # Use np.vstack to help visualize grid points (Could be useful later)
         # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
 
+    # Returns VectorField
+    def get_efield(self, source: PlaceableSource, coords: Coordinates) -> VectorField:
+        
+        return source.get_efield(coords)
+
+    # Returns ScalarField
+    def get_epotential(self, source: PlaceableSource, coords: Coordinates) -> ScalarField:
+        
+        return source.get_epotential(coords)
         

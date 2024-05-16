@@ -31,7 +31,7 @@ def test_get_efield_return_type() -> None:
     sample_domain = Domain(3, 3, 3, 3)
     sample_coords = Domain(3, 3, 3, 3).main_coords
     source = PlaceableSource()
-    result = domain.get_efield(source, sample_coords)
+    result = sample_domain.get_efield(source, sample_coords)
     assert isinstance(result, VectorField)
 
 # Tests return type of get_epotential()
@@ -40,5 +40,5 @@ def test_get_epotential_return_type() -> None:
     sample_domain = Domain(3, 3, 3, 3)
     sample_coords = Domain(3, 3, 3, 3).main_coords
     source = PlaceableSource()
-    result = domain.get_epotential(source, sample_coords)
+    result = sample_domain.get_epotential(source, sample_coords)
     assert isinstance(result, ScalarField)
