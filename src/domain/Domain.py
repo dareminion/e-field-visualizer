@@ -1,5 +1,5 @@
 import numpy as np
-from Coordinates import Coordinates
+from src.domain.Coordinates import Coordinates
 
 class Domain:
 
