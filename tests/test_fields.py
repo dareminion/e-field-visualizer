@@ -23,3 +23,9 @@ def test_VectorField_Typechecking():
     Vector_Numpy_Array = np.zeros((100,100,2))
     test_vector_field = VectorField(Vector_Numpy_Array)
     assert isinstance(test_vector_field, VectorField)
+
+def test_VectorField_Wrapper_Test():
+    Expected_Array = np.zeros((120,230,2))
+    Vector_Numpy_Array = np.zeros((120,230,2))
+    test_vector_field = VectorField(Vector_Numpy_Array)
+    assert test_vector_field._field.all() == Expected_Array.all()
