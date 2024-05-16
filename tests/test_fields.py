@@ -4,6 +4,7 @@ from src.math.VectorFields import VectorField
 import numpy as np
 import pytest
 
+
 def test_import():
     assert True
 
@@ -18,3 +19,7 @@ def test_ScalarField_Wrapper_Test():
     test_scalar_field = ScalarField(Scalar_Numpy_Array)
     assert test_scalar_field._field.all() == Expected_Array.all()
 
+def test_VectorField_Typechecking():
+    Vector_Numpy_Array = np.zeros((100,100,2))
+    test_vector_field = VectorField(Vector_Numpy_Array)
+    assert isinstance(test_vector_field, VectorField)
