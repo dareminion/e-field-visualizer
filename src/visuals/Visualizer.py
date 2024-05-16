@@ -30,6 +30,17 @@ class Visualizer:
     
     # Plot a scalar field as a heatmap
     def plot_scalar_field(self, scalar_field, label='Electric Potential', cmap='viridis'):
-        pass
+
+        # Plot the scalar field using imshow
+        heatmap = self.ax.imshow(scalar_field, extent=(0, scalar_field.shape[1], 0, scalar_field.shape[0]), origin='lower', cmap=cmap, alpha=0.6)
+        
+        # Add a color bar to the heatmap
+        cbar = self.fig.colorbar(heatmap, ax=self.ax, label=label)
+        cbar.set_alpha(1)
+        cbar.draw_all()
+
+    # Display the plot
+    def show(self):
+        plt.show()
 
     
