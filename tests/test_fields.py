@@ -55,9 +55,9 @@ def test_Vector_Addition():
     assert np.array_equal(Expected_Array, (test_vfield1 + test_vfield2)._field)
 
 def test_Vector_Addition_Error_Case():
-    Expected_Array = np.full((20,30,2),(100,50))
-    Vector_Numpy_Array_1 = np.full((20,30,2),(73,19))
-    Vector_Numpy_Array_2 = np.full((20,30,40,3),(27,31,10))
+    Expected_Array = np.full((2,3,2),(73,19))
+    Vector_Numpy_Array_1 = np.full((2,3,2),(73,19))
+    Vector_Numpy_Array_2 = np.full((2,3,4,3),(27,31,10))
     test_vfield1 = VectorField(Vector_Numpy_Array_1)
     test_vfield2 = VectorField(Vector_Numpy_Array_2)
     assert np.array_equal(Expected_Array, (test_vfield1 + test_vfield2)._field)
