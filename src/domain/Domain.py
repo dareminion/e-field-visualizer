@@ -1,12 +1,8 @@
 import numpy as np
+from Coordinates import Coordinates
 
 class Domain:
-    '''
-    Coordinates Class
-       .x (meshgrid)
-       .y (meshgrid)
-       shape
-    '''
+
     def __init__(self, x_span: int, y_span: int, num_x_coords: int, num_y_coords: int) -> None:
         
         # x - span
@@ -35,7 +31,7 @@ class Domain:
         y_coords = np.linspace(y_min, y_max, self.num_y_coords)
 
         # Generate grid using np.meshgrid
-        return  Coordinates(np.meshgrid(x_coords, y_coords))
+        return Coordinates(np.meshgrid(x_coords, y_coords))
 
         # # Use np.vstack to help visualize grid points (Could be useful later)
         # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
