@@ -4,7 +4,7 @@ import numpy as np
 from src.domain.Domain import Domain
 from src.domain.Coordinates import Coordinates
 
-# Generate Sample Grid
+# Generate Sample Domain
 def generate_sample_domain(x_span, y_span, num_x_coords, num_y_coords):
 
     return Domain(7,7,7,7)
