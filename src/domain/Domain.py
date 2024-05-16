@@ -31,7 +31,8 @@ class Domain:
         y_coords = np.linspace(y_min, y_max, self.num_y_coords)
 
         # Generate grid using np.meshgrid
-        return Coordinates(np.meshgrid(x_coords, y_coords))
+        x_grid, y_grid = np.meshgrid(x_coords, y_coords)
+        return Coordinates(x_grid, y_grid)
 
         # # Use np.vstack to help visualize grid points (Could be useful later)
         # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
