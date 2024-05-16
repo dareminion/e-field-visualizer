@@ -1,4 +1,4 @@
-# Testing Grid.py
+# Testing Domain.py
 import pytest
 import numpy as np
 from src.domain.Domain import Domain
