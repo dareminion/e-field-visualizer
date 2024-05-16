@@ -2,7 +2,7 @@ import abc
 from src.domain.Coordinates import Coordinates
 from src.math.VectorFields import VectorField
 from src.math.ScalarFields import ScalarField
-from src.physics.Electrostatic_Source import FiducialElectrostaticSource
+from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 import scipy.constants as const
 import numpy as np
 
