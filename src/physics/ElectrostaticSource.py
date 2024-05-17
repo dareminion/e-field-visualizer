@@ -6,7 +6,7 @@ from src.math.VectorFieldSource import VectorFieldSource
 from src.math.ScalarFieldSource import ScalarFieldSource
 import numpy as np
 
-class FiducialElectrostaticSource(abc.ABC, VectorFieldSource, ScalarFieldSource):
+class FiducialElectrostaticSource(VectorFieldSource, ScalarFieldSource):
     @abc.abstractmethod
     def efield(self, x: float, y: float) -> np.ndarray:
         pass
@@ -15,11 +15,13 @@ class FiducialElectrostaticSource(abc.ABC, VectorFieldSource, ScalarFieldSource)
     def epotential(self, x: float,y: float)-> float:
         pass
 
-    def get_vector_field(x_coords: np.ndarray, y_coords: np.ndarray) -> VectorField:
+    
+    def get_vector_field(self, x_coords: np.ndarray, y_coords: np.ndarray) -> VectorField:
         efield = self.efield(x_coords, y_coords)
         return VectorField(efield)
 
-    def get_scalar_field(x_coords: np.ndarray, y_coords: np.ndarray) -> ScalarField:
+    
+    def get_scalar_field(self, x_coords: np.ndarray, y_coords: np.ndarray) -> ScalarField:
         epotential = self.epotential(x_coords, y_coords)
         return ScalarField(epotential)
 
