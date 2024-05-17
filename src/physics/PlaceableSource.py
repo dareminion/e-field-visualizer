@@ -29,10 +29,10 @@ class PlaceableSource(abc.ABC):
 
 
     def get_vector_field(self, coords: Coordinates) -> VectorField:
-        tcoords = self._coordsTransform(coords)
-        return self.fieldsource.get_vector_field(tcoords)
+        tcoords = self._coordstransform(coords)
+        return self._fieldsource.get_vector_field(tcoords.x_grid, tcoords.y_grid)
 
 
     def get_scalar_field(self, coords: Coordinates) -> ScalarField:
-        tcoords = self._coordsTransform(coords)
-        return self.fieldsource.get_scalar_field(tcoords)
+        tcoords = self._coordstransform(coords)
+        return self._fieldsource.get_scalar_field(tcoords.x_grid, tcoords.y_grid)

@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 from src.domain.Domain import Domain
+from src.math.VectorFields import VectorField
 from src.domain.Coordinates import Coordinates
 from src.physics.PointCharge import PointCharge
 from src.physics.PlaceableSource import PlaceableSource
@@ -62,4 +63,9 @@ def test_coord_translation(PSource_Generation, Placement_Data, Sample_Coords):
     assert np.array_equal(pxgrid, expected_x)
     assert np.array_equal(pygrid, expected_y)
 
-
+def test_get_vector_field(PSource_Generation, Placement_Data, Sample_Coords):
+    psource = PSource_Generation
+    data = Placement_Data
+    psource.place(data)
+    output = psource.get_vector_field(Sample_Coords)
+    assert isinstance(output, VectorField)
