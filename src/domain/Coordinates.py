@@ -13,13 +13,16 @@ class Coordinates:
             raise ValueError("The X and Y meshgrids are not the same shape")
 
 
-    def shift_coordinates(self, h: int, k: int) -> 'Coordinates':
+    def translate(self, h: int, k: int) -> 'Coordinates':
         
         # Shifts the coordinates
-        new_x_grid = self.x_grid + h
-        new_y_grid = self.y_grid + k
+        new_x_grid = self.x_grid - h
+        new_y_grid = self.y_grid - k
 
         # Creates new shifted Coordinates object
         return Coordinates(new_x_grid, new_y_grid)
+    
+    def rotate(self, theta: float) -> 'Coordinates':
+        pass
 
 
