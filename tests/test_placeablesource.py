@@ -4,7 +4,6 @@ from src.domain.Domain import Domain
 from src.domain.Coordinates import Coordinates
 from src.physics.PointCharge import PointCharge
 from src.physics.PlaceableSource import PlaceableSource
-from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 
 @pytest.fixture
 def Coord_Transform():
@@ -62,3 +61,5 @@ def test_coord_translation(PSource_Generation, Placement_Data, Sample_Coords):
     assert pygrid.shape == (7,7)
     assert np.array_equal(pxgrid, expected_x)
     assert np.array_equal(pygrid, expected_y)
+
+
