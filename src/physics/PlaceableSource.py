@@ -6,7 +6,7 @@ from src.math.ScalarFields import ScalarField
 from src.domain.Coordinates import Coordinates
 from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 
-class PlaceableSource(abc.ABC):
+class PlaceableSource():
 
     def __init__(self, source : FiducialElectrostaticSource , coordinate_transformer : Callable) -> None:
         self._fieldsource = source
@@ -17,12 +17,15 @@ class PlaceableSource(abc.ABC):
 
     def place(self, placement_data: Dict [str, float]) -> None:
         self._placement_data = placement_data
-        self._transformed_coords = None
+        self.transformed_coords = None
 
-    @abc.abstractmethod
     def _coordstransform(self, coordinates: Coordinates) -> Coordinates:
-        pass
 
+        if not self._transformed_coords:
+
+            self._transformed_coords = self._coordsTransformer(coordinates, self._placement_data)
+
+            return self._transformed_coords
 
     def get_vector_field(self, coords: Coordinates) -> VectorField:
         tcoords = self._coordstransform(coords)

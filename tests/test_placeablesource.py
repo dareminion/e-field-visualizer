@@ -5,7 +5,7 @@ from src.math.VectorFields import VectorField
 from src.math.ScalarFields import ScalarField
 from src.domain.Coordinates import Coordinates
 from src.physics.PointCharge import PointCharge
-from src.physics.PlaceablePointSource import PlaceablePointSource
+from src.physics.PlaceableSource import PlaceableSource
 
 @pytest.fixture
 def Coord_Transform():
@@ -20,7 +20,7 @@ def Coord_Transform():
 @pytest.fixture
 def PSource_Generation(Coord_Transform):
     source = PointCharge(10)
-    psource = PlaceablePointSource(source, Coord_Transform)
+    psource = PlaceableSource(source, Coord_Transform)
     return psource
 
 @pytest.fixture
@@ -39,7 +39,7 @@ def test_import():
 
 def test_PlaceablePointSource_init(PSource_Generation):
     psource = PSource_Generation
-    assert isinstance(psource, PlaceablePointSource)
+    assert isinstance(psource, PlaceableSource)
     assert isinstance(psource._fieldsource, PointCharge)
 
 def test_placement(PSource_Generation, Placement_Data):
