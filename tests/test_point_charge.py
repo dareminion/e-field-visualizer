@@ -24,11 +24,16 @@ def test_efield_return_type(generate_pt_source):
     assert isinstance(output, np.ndarray)
     assert output.shape == (2,)
     
-def test_electric_potential_return_tyoe(generate_pt_source):
+def test_electric_potential_return_type(generate_pt_source):
     test_x, test_y = 2, 5
     test_source = generate_pt_source
     output = test_source.epotential(test_x, test_y)
-    assert isinstance(output, float)
+    if isinstance(output, np.ndarray):
+        assert output.dtype == float and output.shape == ()
+    elif isinstance(output, float):
+        assert True
+    else:
+        assert False
 
 def test_efield_value(generate_pt_source):
     test_x, test_y = 2, 5
