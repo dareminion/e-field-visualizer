@@ -10,4 +10,6 @@ class VectorField(Field):
     be equal to the number of entires prior, which is 3
 
     More functionatilites may be added to this class 
+
+    Error Checking for this class will be added in the future
     '''
