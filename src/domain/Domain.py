@@ -22,7 +22,7 @@ class Domain:
         
         self.main_coords = self._domain_setup()
 
-        sources = {}
+        self.sources = {}
 
     def _domain_setup(self) -> tuple:
         
@@ -53,10 +53,24 @@ class Domain:
         
         return source.get_scalar_field(coords)
     
-    def add_a_source(source: PlaceableSource, source_name: str) -> None:
-        pass
-
-    def remove_a_source(source_name: str) -> None:
-        pass
+    def get_net_efield(self):
         
+        net_efield = np.zeros((self.main_coords.shape[0], self.main_coords.shape[1], 2))
+
+        for source in self.sources:
+            net_efield += self._get_efield(self.sources[source], self.main_coords)
+    
+    def add_a_source(self, source: PlaceableSource, source_name: str) -> None:
+        
+        if source_name not in self.sources:
+            self.sources[source_name] = source
+        else:
+            raise KeyError("source already exists in domain")
+
+    def remove_a_source(self, source_name: str) -> None:
+        
+        if source_name in self.sources:
+            del self.sources[source_name]
+        else:
+            raise KeyError("source does not exist in domain")
     
