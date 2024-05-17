@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 from src.domain.Domain import Domain
 from src.domain.Coordinates import Coordinates
-from src.physics.placeablesource import PlaceableSource
+from src.physics.PlaceableSource import PlaceableSource
 from src.math.VectorFields import VectorField
 from src.math.ScalarFields import ScalarField
 
@@ -16,14 +16,54 @@ def generate_sample_coordinate():
 def test_imports() -> None:
     assert True
 
-# Tests if coordinates are shifted correctly
-def test_shift_coordinates() -> None:
+# Tests if coordinates are translated correctly
+def test_translate() -> None:
 
     original_coords = generate_sample_coordinate()
-    shifted_coords = original_coords.shift_coordinates(3, 3)
+    translated_coords = original_coords.translate(3, 3)
 
-    assert np.array_equal(shifted_coords.x_grid , original_coords.x_grid + 3)
-    assert np.array_equal(shifted_coords.y_grid , original_coords.y_grid + 3)
+    assert np.array_equal(translated_coords.x_grid , original_coords.x_grid - 3)
+    assert np.array_equal(translated_coords.y_grid , original_coords.y_grid - 3)
+
+# Tests if the simplest case of a coordinate rotation
+def test_simple_rotate() -> None:
+    # Define simple grids
+    x_grid = np.array([[1, 0], [0, 1]])
+    y_grid = np.array([[0, 1], [-1, 0]])
+    coords = Coordinates(x_grid, y_grid)
+
+    # Rotate 90 degrees (pi/2 radians)
+    theta = np.pi / 2
+    rotated_coords = coords.rotate(theta)
+
+    # Define expected results after 90 degrees rotation
+    expected_x_grid = np.array([[0, -1], [1, 0]])
+    expected_y_grid = np.array([[1, 0], [0, 1]])
+
+    # Assert the rotated coordinates are as expected
+    np.testing.assert_array_almost_equal(rotated_coords.x_grid, expected_x_grid)
+    np.testing.assert_array_almost_equal(rotated_coords.y_grid, expected_y_grid)
+
+# Tests if all coordinates are rotated correctly (more complex)
+def test_rotate() -> None:
+
+    original_coords = generate_sample_coordinate()
+
+    # Rotate 90 degrees (pi/2 radians)
+    theta = np.pi / 2
+    rotated_coords = original_coords.rotate(theta) 
+
+    # Define expected results after 90 degrees rotation
+    rotation_matrix = np.array([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])
+    original_coords_flat = np.stack((original_coords.x_grid.ravel(), original_coords.y_grid.ravel()), axis=1)
+    expected_coords_flat = original_coords_flat @ rotation_matrix.T
+    expected_x_grid = expected_coords_flat[:, 0].reshape(original_coords.x_grid.shape)
+    expected_y_grid = expected_coords_flat[:, 1].reshape(original_coords.y_grid.shape)
+
+    # Assert the rotated coordinates are as expected
+    np.testing.assert_array_almost_equal(rotated_coords.x_grid, expected_x_grid)
+    np.testing.assert_array_almost_equal(rotated_coords.y_grid, expected_y_grid)   
+
 
 # Tests return type of get_efield()
 def test_get_efield_return_type() -> None:
