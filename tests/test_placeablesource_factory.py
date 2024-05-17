@@ -15,6 +15,6 @@ def Sample_Coords():
 
 def test_psource_factory(Placement_Data, Sample_Coords):
     factory = PointSourceFactory()
-    test_placeable_source = factory.create_placeable_source(10, Sample_Coords, Placement_Data)
+    test_placeable_source = factory.create_placeable_source(10)
     assert isinstance(test_placeable_source, PlaceableSource)
 
