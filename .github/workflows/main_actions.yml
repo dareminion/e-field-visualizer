@@ -20,4 +20,6 @@ jobs:
         run: |
           pip install pytest pytest
           pip install numpy
+          pip install scipy
+          pip install matplotlib
           pytest tests/tests.py
