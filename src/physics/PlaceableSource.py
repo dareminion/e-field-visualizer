@@ -26,6 +26,8 @@ class PlaceableSource():
             self._transformed_coords = self._coordsTransformer(coordinates, self._placement_data)
 
             return self._transformed_coords
+        else:
+            return self._transformed_coords
 
     def get_vector_field(self, coords: Coordinates) -> VectorField:
         tcoords = self._coordstransform(coords)
