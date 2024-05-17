@@ -12,13 +12,13 @@ class PlaceableSourceFactory(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def create_coord_transformer(Coords: Coordinates, Placement_Data : Dict[str, float]) -> Callable[[Coordinates, Dict[str, float]], Coordinates]:
+    def create_coord_transformer(Coords: Coordinates, Placement_Data : Dict[str, float]) -> Callable[..., Coordinates]:
         pass
     
     @abc.abstractmethod
-    def create_placeable_source(self, *args) -> PlaceableSource:
+    def create_placeable_source(self, *args, Coords: Coordinates, Placement_Data : Dict[str, float]) -> PlaceableSource:
         field_source = self.create_field_source(*args)
-        coord_transformer = self.create_coord_transformer()
+        coord_transformer = self.create_coord_transformer(Coords, Placement_Data)
         return PlaceableSource(field_source, coord_transformer)
 
 
