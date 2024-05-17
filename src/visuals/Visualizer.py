@@ -1,64 +1,85 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import quiver
-from matplotlib.pyplot import streamplot
-from matplotlib.pyplot import pcolormesh
-from matplotlib.pyplot import contour
+from matplotlib.pyplot import quiver, streamplot, pcolormesh, contour
 from src.domain.Domain import Domain
 
 
 class Visualizer:
 
-    REGISTRY = {'Vector Fields' : {'quiver' : quiver,
-                                   'fieldlines' : streamplot},
-                    
-                'Scalar Fields' : {'heatmap' : pcolormesh,
-                                   'grayscale' : pcolormesh,
-                                   'contourmap' : contour }
-                }
-
     # Creates a default plot of a pre-determined size that can be changed later
     def __init__(self, domain: Domain) -> None:
         
+        self.X = domain.main_coords.x_grid
+        self.Y = domain.main_coords.y_grid
+
+        # self._shape = domain.main_coords.shape
+    
         # self.figure is a new figure that gets generated at each instantiation
         # self.axes are a pair of axes (subplots) that get generated at each instantiation
-        self._shape = domain.main_coords.shape
-        self.figure, self.axes = plt.subplots(self._shape)
+        # self.figure, self.axes = plt.subplots(figsize=self._shape)
+        self.figure, self.axes = plt.subplots(figsize=(domain.x_span, domain.y_span))
+
+        self.place_source()
+
+        self.REGISTRY = {'Vector Fields' : {'quiver' : getattr(self.axes, 'quiver'),
+                                        'fieldlines' : getattr(self.axes, 'streamplot')},
+                    
+                    'Scalar Fields' : {'heatmap' : getattr(self.axes, 'pcolormesh'),
+                                        'grayscale' : getattr(self.axes, 'pcolormesh'),
+                                        'contourmap' : getattr(self.axes, 'contour') }
+                }
 
     # Plot a vector field with arrows
-    def plot_vector_field(self, vector_field, plot_type, label='Vector Field', color='r'):
+    def plot_vector_field(self, vector_field, plot_type):
 
-        # Determine the domain size
-        n, m, _ = vector_field.shape
+        plot_func = self.REGISTRY['Vector Fields'][plot_type]
 
-        # Create a meshgrid for the vector field
-        X, Y = np.meshgrid(np.arange(m), np.arange(n))
-
-        # Extract the x and y components of the vector field
         Ex = vector_field[:, :, 0]
         Ey = vector_field[:, :, 1]
 
-        # Plot the vector field using quiver
-        self.axes.quiver(X, Y, Ex, Ey, color=color, label=label)
+        if plot_type == 'quiver':
+            plot_func(self.X, self.Y, Ex, Ey, color='r', label='Vector Field')
+
+        elif plot_type == 'fieldlines':
+            plot_func(self.X, self.Y, Ex, Ey, color='r')
+
         self.axes.set_title('Vector Field')
         self.axes.set_xlabel('x')
         self.axes.set_ylabel('y')
         self.axes.grid()
 
-        if label:
+        if plot_type == 'quiver':
             self.axes.legend()
+
     
     # Plot a scalar field as a heatmap
-    def plot_scalar_field(self, scalar_field, label='Electric Potential', cmap='viridis'):
+    def plot_scalar_field(self, scalar_field, plot_type):
 
-        # Plot the scalar field using imshow
-        heatmap = self.axes.imshow(scalar_field, extent=(0, scalar_field.shape[1], 0, scalar_field.shape[0]), origin='lower', cmap=cmap, alpha=0.6)
-        
-        # Add a color bar to the heatmap
-        cbar = self.figure.colorbar(heatmap, ax=self.axes, label=label)
+        plot_func = self.REGISTRY['Scalar Fields'][plot_type]
+
+        if plot_type == 'heatmap':
+            c = plot_func(self.X, self.Y, scalar_field, cmap='viridis')
+
+        elif plot_type == 'grayscale':
+            c = plot_func(self.X, self.Y, scalar_field, cmap='gray')
+
+        elif plot_type == 'contourmap':
+            c = plot_func(self.X, self.Y, scalar_field, cmap='viridis')
+
+        cbar = self.figure.colorbar(c, ax=self.axes, label='Electric Potential')
         cbar.set_alpha(1)
         cbar._draw_all()
 
     # Display the plot
     def show(self):
         plt.show()
+
+    def place_source(self) -> None:
+
+        # self.axes.plot(self.source.position[0], self.source.position[1], 'bo', markersize=10, label='Source')
+        # self.axes.legend()
+        # self.axes.plot(5, 6, 'bo', markersize=10, label='Source')
+        # self.axes.legend()
+        pass
+
+
