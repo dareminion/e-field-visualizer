@@ -11,14 +11,14 @@ class PointSourceFactory(PlaceableSourceFactory):
         return PointCharge(charge)
     
     @staticmethod
-    def create_coord_transformer(Coords: Coordinates, Placement_Data: Dict[str, float]) -> Callable[..., Coordinates]:
-        def coord_translator():
+    def create_coord_transformer() -> Callable:
+        def coord_translator(Coords: Coordinates, Placement_Data: Dict[str, float]):
             shift_x = Placement_Data['x']
             shift_y = Placement_Data['y']
             return Coordinates.translate(Coords, shift_x, shift_y)
         return coord_translator
     
-    def create_placeable_source(self, charge : float, Coords: Coordinates, Placement_Data: Dict[str, float]) -> PlaceableSource:
+    def create_placeable_source(self, charge : float) -> PlaceableSource:
         field_source = self.create_field_source(charge)
-        coord_transformer = self.create_coord_transformer(Coords, Placement_Data)
+        coord_transformer = self.create_coord_transformer()
         return PlaceableSource(field_source, coord_transformer)
