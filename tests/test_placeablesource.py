@@ -38,13 +38,13 @@ def test_import():
 def test_PlaceableSource_init(PSource_Generation):
     psource = PSource_Generation
     assert isinstance(psource, PlaceableSource)
-    assert isinstance(psource.fieldsource, PointCharge)
+    assert isinstance(psource._fieldsource, PointCharge)
 
 def test_placement(PSource_Generation, Placement_Data):
     psource = PSource_Generation
     data = Placement_Data
     psource.place(data)
-    assert psource.placement_data == data
+    assert psource._placement_data == data
 
 def test_coord_translation(PSource_Generation, Placement_Data, Sample_Coords):
     psource = PSource_Generation

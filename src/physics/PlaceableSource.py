@@ -10,20 +10,20 @@ class PlaceableSource(abc.ABC):
 
     def __init__(self, source : FiducialElectrostaticSource , coordinate_transformer : Callable) -> None:
 
-        self.fieldsource = source
+        self._fieldsource = source
         self._coordsTransformer = coordinate_transformer
-        self.placement_data = None
+        self._placement_data = None
         self._transformed_coords = None
 
     def place(self, placement_data : Dict[str, float]) -> None:
-        self.placement_data = placement_data
+        self._placement_data = placement_data
         self._transformed_coords = None
 
     def _coordstransform(self, coordinates: Coordinates) -> Coordinates:
 
         if not self._transformed_coords:
 
-            self._transformed_coords = self._coordsTransformer(coordinates, self.placement_data)
+            self._transformed_coords = self._coordsTransformer(coordinates, self._placement_data)
 
             return self._transformed_coords
 
