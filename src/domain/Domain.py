@@ -43,13 +43,13 @@ class Domain:
 
     # Returns VectorField
     @staticmethod
-    def _get_efield(source: PlaceableSource, coords: Coordinates) -> VectorField:
+    def get_efield(source: PlaceableSource, coords: Coordinates) -> VectorField:
         
         return source.get_vector_field(coords)
 
     # Returns ScalarField
     @staticmethod
-    def _get_epotential(source: PlaceableSource, coords: Coordinates) -> ScalarField:
+    def get_epotential(source: PlaceableSource, coords: Coordinates) -> ScalarField:
         
         return source.get_scalar_field(coords)
     
