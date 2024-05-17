@@ -8,6 +8,9 @@ from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 from src.physics.PointCharge import PointCharge
 from src.domain.Domain import Domain
 import numpy as np
+import scipy.constants as const
+
+k_C = const.k
 
 
 @pytest.fixture
@@ -38,7 +41,6 @@ def test_get_scalar_field_type(generate_pt_source):
     assert isinstance(test_epotential, ScalarField)
 
 def test_get_vector_field_value(generate_pt_source):
-    k_C = 8.99 * (10 ** 9)
     test_coordinates = Domain(2,2,2,2).main_coords
     x_coords = test_coordinates.x_grid
     y_coords = test_coordinates.y_grid
@@ -60,7 +62,6 @@ def test_get_vector_field_value(generate_pt_source):
 
 
 def test_get_scalar_field_value(generate_pt_source):
-    k_C = 8.99 * (10 ** 9)
     test_coordinates = Domain(2,2,2,2).main_coords
     x_coords = test_coordinates.x_grid
     y_coords = test_coordinates.y_grid
