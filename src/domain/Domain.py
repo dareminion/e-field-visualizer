@@ -22,7 +22,7 @@ class Domain:
         
         self.main_coords = self._domain_setup()
 
-        
+        sources = {}
 
     def _domain_setup(self) -> tuple:
         
@@ -52,5 +52,11 @@ class Domain:
     def _get_epotential(source: PlaceableSource, coords: Coordinates) -> ScalarField:
         
         return source.get_scalar_field(coords)
+    
+    def add_a_source(source: PlaceableSource, source_name: str) -> None:
+        pass
+
+    def remove_a_source(source_name: str) -> None:
+        pass
         
     
