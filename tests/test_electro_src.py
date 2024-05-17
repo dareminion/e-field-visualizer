@@ -58,7 +58,7 @@ def test_get_vector_field_value(generate_pt_source):
     expected_output = np.array([[[efieldx1, efieldy1], [efieldx2, efieldy2]], 
                                  [[efieldx3,efieldy3],[efieldx4,efieldy4]]])
     #assert np.allclose(test_efield_output._field, expected_output)
-    assert expected_output.shape == test_efield_output._field.shape
+    assert np.allclose(expected_output, test_efield_output._field)
 
 
 def test_get_scalar_field_value(generate_pt_source):
