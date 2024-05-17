@@ -6,7 +6,8 @@ from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 import scipy.constants as const
 import numpy as np
 
-k_C = 8.99 * (10 ** 9)
+k_C = const.k
+
 
 class PointCharge(FiducialElectrostaticSource):
 
@@ -15,6 +16,8 @@ class PointCharge(FiducialElectrostaticSource):
 
     
     def efield(self, x: float, y: float) -> np.ndarray:
+        
+        
         
         r = ((x ** 2) + (y ** 2)) ** (.5)
 
@@ -27,8 +30,10 @@ class PointCharge(FiducialElectrostaticSource):
 
         nonzero_mask = (r != 0)
 
-        x_magnitude = np.where(nonzero_mask, (k_C * self.charge / r ** 2) * (x / r), np.nan)
-        y_magnitude = np.where(nonzero_mask, (k_C * self.charge / r ** 2) * (y / r), np.nan)
+        mag_factor = k_C * self.charge / r ** 3
+
+        x_magnitude = np.where(nonzero_mask, mag_factor * x, np.nan)
+        y_magnitude = np.where(nonzero_mask, mag_factor * y, np.nan)
 
         efield = np.array([x_magnitude, y_magnitude])
 
