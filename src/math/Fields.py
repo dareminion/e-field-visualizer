@@ -24,6 +24,12 @@ class Field(abc.ABC):
        Error Checking:
        If the shapes of the two fields are not the same, numpy raises a value error
        When value error is raised, the original field is returned
+
+       Error Checking method above has short comings as some of numpy's workarounds such
+       as adding a single value to an array will cause this to break
+
+       For the purposes of the current implementation of this wrapper, this will work fine
+       If time permits, a higher level of error checking will be implemented
        '''
        try: 
         return self.__class__(np.add(self._field , other._field))
