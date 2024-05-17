@@ -18,12 +18,17 @@ class PointCharge(FiducialElectrostaticSource):
         
         r = ((x ** 2) + (y ** 2)) ** (.5)
 
-        if r == 0:
-            return np.array([0,0])
+        if isinstance(r, np.ndarray):
+            r = np.where(r == 0, np.nan, r) 
 
         else:
-            x_magnitude = (((k_C) * self.charge) / r ** 2 ) * (x/r)
-            y_magnitude = (((k_C) * self.charge) / r ** 2 ) * (y/r)
+            if r == 0:
+                return 0.0
+
+        nonzero_mask = (r != 0)
+
+        x_magnitude = np.where(nonzero_mask, (k_C * self.charge / r ** 2) * (x / r), np.nan)
+        y_magnitude = np.where(nonzero_mask, (k_C * self.charge / r ** 2) * (y / r), np.nan)
 
         efield = np.array([x_magnitude, y_magnitude])
 
@@ -33,12 +38,15 @@ class PointCharge(FiducialElectrostaticSource):
     def epotential(self, x: float, y: float) -> float:
 
         r = ((x ** 2) + (y ** 2)) ** (.5)
-
-        if r == 0:
-            return 0
         
+        if isinstance(r, np.ndarray):
+            r = np.where(r == 0, np.nan, r) 
+
         else:
-            electric_potential = (k_C * self.charge) / r
+            if r == 0:
+                return np.nan
+
+        electric_potential = (k_C * self.charge) / r
 
         return electric_potential
 
