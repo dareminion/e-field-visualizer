@@ -15,14 +15,14 @@ class Visualizer:
     def plot_vector_field(self, vector_field, label='Vector Field', color='r'):
 
         # Determine the domain size
-        n = int(np.sqrt(vector_field.shape[0]))
+        n, m, _ = vector_field.shape
 
         # Create a meshgrid for the vector field
-        X, Y = np.meshgrid(np.arange(n), np.arange(n))
+        X, Y = np.meshgrid(np.arange(m), np.arange(n))
 
         # Extract the x and y components of the vector field
-        Ex = vector_field[:, 0].reshape(n, n)
-        Ey = vector_field[:, 1].reshape(n, n)
+        Ex = vector_field[:, :, 0]
+        Ey = vector_field[:, :, 1]
 
         # Plot the vector field using quiver
         self.axes.quiver(X, Y, Ex, Ey, color=color, label=label)
@@ -48,5 +48,3 @@ class Visualizer:
     # Display the plot
     def show(self):
         plt.show()
-
-
