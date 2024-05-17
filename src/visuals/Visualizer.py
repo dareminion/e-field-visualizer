@@ -5,7 +5,6 @@ from src.domain.Domain import Domain
 from src.physics.PlaceableSource import PlaceableSource
 from src.physics.PointCharge import PointCharge
 
-
 class Visualizer:
 
     # Creates a default plot of a pre-determined size that can be changed later
@@ -14,12 +13,12 @@ class Visualizer:
         self.X = domain.main_coords.x_grid
         self.Y = domain.main_coords.y_grid
 
-        # self._shape = domain.main_coords.shape
+        self._shape = domain.main_coords.shape
     
         # self.figure is a new figure that gets generated at each instantiation
         # self.axes are a pair of axes (subplots) that get generated at each instantiation
-        # self.figure, self.axes = plt.subplots(figsize=self._shape)
-        self.figure, self.axes = plt.subplots(figsize=(domain.x_span, domain.y_span))
+        self.figure, self.axes = plt.subplots(figsize=self._shape)
+        # self.figure, self.axes = plt.subplots(figsize=(domain.x_span, domain.y_span))
 
         self.REGISTRY = {'Vector Fields' : {'quiver' : getattr(self.axes, 'quiver'),
                                         'fieldlines' : getattr(self.axes, 'streamplot')},
@@ -36,6 +35,10 @@ class Visualizer:
 
         Ex = vector_field[:, :, 0]
         Ey = vector_field[:, :, 1]
+
+        magnitude = np.sqrt(Ex**2 + Ey**2)
+        Ex = Ex / magnitude
+        Ey = Ey / magnitude
 
         if plot_type == 'quiver':
             plot_func(self.X, self.Y, Ex, Ey, color='r', label='Vector Field')
@@ -82,5 +85,3 @@ class Visualizer:
             self.axes.legend()
         else:
             raise ValueError("Source type not compatible")
-
-
