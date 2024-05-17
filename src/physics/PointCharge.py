@@ -36,6 +36,9 @@ class PointCharge(FiducialElectrostaticSource):
         y_magnitude = np.where(nonzero_mask, mag_factor * y, np.nan)
 
         efield = np.array([x_magnitude, y_magnitude])
+        if isinstance(r, np.ndarray):
+        
+            return np.stack(efield, axis = 2)
 
         return efield
 
