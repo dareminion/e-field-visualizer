@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import quiver, streamplot, pcolormesh, contour
 from src.domain.Domain import Domain
+from src.physics.PlaceableSource import PlaceableSource
+from src.physics.PointCharge import PointCharge
 
 
 class Visualizer:
@@ -18,8 +20,6 @@ class Visualizer:
         # self.axes are a pair of axes (subplots) that get generated at each instantiation
         # self.figure, self.axes = plt.subplots(figsize=self._shape)
         self.figure, self.axes = plt.subplots(figsize=(domain.x_span, domain.y_span))
-
-        self.place_source()
 
         self.REGISTRY = {'Vector Fields' : {'quiver' : getattr(self.axes, 'quiver'),
                                         'fieldlines' : getattr(self.axes, 'streamplot')},
@@ -74,12 +74,13 @@ class Visualizer:
     def show(self):
         plt.show()
 
-    def place_source(self) -> None:
+    def place_source(self, source: PlaceableSource) -> None:
 
-        # self.axes.plot(self.source.position[0], self.source.position[1], 'bo', markersize=10, label='Source')
-        # self.axes.legend()
-        # self.axes.plot(5, 6, 'bo', markersize=10, label='Source')
-        # self.axes.legend()
-        pass
+        if isinstance(source._fieldsource, PointCharge):
+            x, y = source._placement_data['x'], source._placement_data['y']
+            self.axes.plot(x, y, 'bo', markersize=10, label='Source')
+            self.axes.legend()
+        else:
+            raise ValueError("Source type not compatible")
 
 
