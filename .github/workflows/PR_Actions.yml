@@ -1,5 +1,5 @@
 name: E-Field Workflows
-run-name: ${{ github.actor }} is merging a pull request
+run-name: ${{ github.actor }} is creating a pull request
 on:
   pull_request:
     branches:
@@ -12,14 +12,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python Version 3.11
+      - name: Set up Python Version 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-      - name: Test with basic tests
+          python-version: "3.12"
+      - name: Test with Unit Tests
         run: |
           pip install pytest pytest
           pip install numpy
           pip install scipy
           pip install matplotlib
-          pytest tests/tests.py
+          pytest tests/
