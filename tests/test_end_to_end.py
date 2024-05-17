@@ -9,6 +9,14 @@ from src.factories.PointSourceFactory import PointSourceFactory
 from src.physics.PlaceableSource import PlaceableSource
 from src.domain.Domain import Domain
 
+
+
+'''
+test_workflows is just a temporary test for the workflows test to pass when a PR occurs
+'''
+def test_workflows():
+    assert True
+
 def test_FactorytoVectorField():
     domain = Domain(10, 10, 10, 10)
 
@@ -24,12 +32,6 @@ def test_FactorytoVectorField():
     vector_field = source.get_vector_field(domain.main_coords)
 
     assert isinstance(vector_field, VectorField)
-
-'''
-test_workflows is just a temporary test for the workflows test to pass when a PR occurs
-'''
-def test_workflows():
-    assert True
 
 '''
 Small Integration Tests will be here after class creatio is complete
