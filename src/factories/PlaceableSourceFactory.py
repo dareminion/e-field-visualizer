@@ -1,30 +1,25 @@
-class PlaceableSourceFactory():
+import abc
+from typing import Callable , Dict
+from src.domain.Coordinates import Coordinates
+from src.physics.PlaceableSource import PlaceableSource
+from src.physics.ElectrostaticSource import FiducialElectrostaticSource
+class PlaceableSourceFactory(abc.ABC):
+    
     @staticmethod
-    def create_field_source():
+    @abc.abstractmethod
+    def create_field_source(*args) -> FiducialElectrostaticSource:
         pass
 
-    #another method here
-    @abstractmethod
-    def create_grid_transformer():
+    @staticmethod
+    @abc.abstractmethod
+    def create_coord_transformer(Coords: Coordinates, Placement_Data : Dict[str, float]) -> Callable[[Coordinates, Dict[str, float]], Coordinates]:
         pass
-
-    @abstractmethod
-    @staticmethod
-    def create():
-        field_source = self.create_field_source()
-        grid_transfromer = self.create_grid_transformer()
-        return PlacealbeSource(field_source, gird_transformer)
-
-class PtSourcePlaceableFactory(PlaceableSourceFactory):
-    @staticmethod
-    def make_field_source(q = None):
-        return PointSource(q)
+    
+    @abc.abstractmethod
+    def create_placeable_source(self, *args) -> PlaceableSource:
+        field_source = self.create_field_source(*args)
+        coord_transformer = self.create_coord_transformer()
+        return PlaceableSource(field_source, coord_transformer)
 
 
-    @staticmethod
-    def make_grid_transfromer():
-        shifter = gridtransforms.gridshift
-        def gtransfroms(g placement_data):
-            shift_data = placement_data['shift']
-            return shifter(g, shift_data)
-        return gtransforms
+
