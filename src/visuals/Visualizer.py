@@ -5,11 +5,12 @@ from src.domain.Domain import Domain
 class Visualizer:
 
     # Creates a default plot of a pre-determined size that can be changed later
-    def __init__(self, figsize: tuple=(10,10)) -> None:
+    def __init__(self, domain: Domain) -> None:
         
         # self.figure is a new figure that gets generated at each instantiation
         # self.axes are a pair of axes (subplots) that get generated at each instantiation
-        self.figure, self.axes = plt.subplots(figsize=figsize)
+        self._shape = domain.main_coords.shape
+        self.figure, self.axes = plt.subplots(self._shape)
 
     # Plot a vector field with arrows
     def plot_vector_field(self, vector_field, label='Vector Field', color='r'):
