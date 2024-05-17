@@ -32,4 +32,10 @@ def test_electric_potential_return_tyoe(generate_pt_source):
     assert isinstance(output, ScalarField)
     assert output._field.shape == (5,5)
 
-    
+def test_efield_value(generate_pt_source):
+    test_x = 4
+    test y = 4
+    test_source = generate_pt_source
+    test_efield_output = test_source.electric_field(test_coordinate)
+    expected_output = ((8.99 * (10 ** 9)) * self.q ) / (32 ** 1/2)
+    assert test_efield_output == expected_output 
