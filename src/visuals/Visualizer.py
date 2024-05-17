@@ -1,8 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import quiver
+from matplotlib.pyplot import streamplot
+from matplotlib.pyplot import pcolormesh
+from matplotlib.pyplot import contour
 from src.domain.Domain import Domain
 
+
 class Visualizer:
+
+    REGISTRY = {'Vector Fields' : {'quiver' : quiver,
+                                   'fieldlines' : streamplot},
+                    
+                'Scalar Fields' : {'heatmap' : pcolormesh,
+                                   'grayscale' : pcolormesh,
+                                   'contourmap' : contour }
+                }
 
     # Creates a default plot of a pre-determined size that can be changed later
     def __init__(self, domain: Domain) -> None:
@@ -13,7 +26,7 @@ class Visualizer:
         self.figure, self.axes = plt.subplots(self._shape)
 
     # Plot a vector field with arrows
-    def plot_vector_field(self, vector_field, label='Vector Field', color='r'):
+    def plot_vector_field(self, vector_field, plot_type, label='Vector Field', color='r'):
 
         # Determine the domain size
         n, m, _ = vector_field.shape
