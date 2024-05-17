@@ -2,7 +2,7 @@ import abc
 from src.domain.Coordinates import Coordinates
 from src.math.VectorFields import VectorField
 from src.math.ScalarFields import ScalarField
-
+import numpy as np
 
 class FiducialElectrostaticSource(abc.ABC):
     @abc.abstractmethod
