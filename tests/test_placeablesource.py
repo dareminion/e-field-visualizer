@@ -2,9 +2,10 @@ import pytest
 import numpy as np
 from src.domain.Domain import Domain
 from src.math.VectorFields import VectorField
+from src.math.ScalarFields import ScalarField
 from src.domain.Coordinates import Coordinates
 from src.physics.PointCharge import PointCharge
-from src.physics.PlaceableSource import PlaceableSource
+from src.physics.PlaceablePointSource import PlaceablePointSource
 
 @pytest.fixture
 def Coord_Transform():
@@ -19,7 +20,7 @@ def Coord_Transform():
 @pytest.fixture
 def PSource_Generation(Coord_Transform):
     source = PointCharge(10)
-    psource = PlaceableSource(source, Coord_Transform)
+    psource = PlaceablePointSource(source, Coord_Transform)
     return psource
 
 @pytest.fixture
@@ -36,9 +37,9 @@ def Sample_Coords():
 def test_import():
     assert True
 
-def test_PlaceableSource_init(PSource_Generation):
+def test_PlaceablePointSource_init(PSource_Generation):
     psource = PSource_Generation
-    assert isinstance(psource, PlaceableSource)
+    assert isinstance(psource, PlaceablePointSource)
     assert isinstance(psource._fieldsource, PointCharge)
 
 def test_placement(PSource_Generation, Placement_Data):
@@ -69,3 +70,10 @@ def test_get_vector_field(PSource_Generation, Placement_Data, Sample_Coords):
     psource.place(data)
     output = psource.get_vector_field(Sample_Coords)
     assert isinstance(output, VectorField)
+
+def test_get_scalar_field(PSource_Generation, Placement_Data, Sample_Coords):
+    psource = PSource_Generation
+    data = Placement_Data
+    psource.place(data)
+    output = psource.get_scalar_field(Sample_Coords)
+    assert isinstance(output, ScalarField)
