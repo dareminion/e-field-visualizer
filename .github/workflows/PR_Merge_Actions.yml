@@ -1,0 +1,26 @@
+name: PR Merge Workflow
+run-name: ${{ github.actor }} is merging a pull request
+
+on:
+    pull_request:
+        branches:
+            - main
+        types: [closed]
+
+jobs:
+    build:
+        runs-on: Ubuntu-Latest
+
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Python Version 3.12
+              uses: actions/setup-python@v4
+              with:
+                python-version: "3.12"
+            - name: Test with All Tests
+              run: |
+                pip install pytest pytest
+                pip install numpy
+                pip install scipy
+                pip install matplotlib
+                pytest tests/
