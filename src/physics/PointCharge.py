@@ -26,8 +26,12 @@ class ElectrostaticPtCharge(FiducialElectrostaticSource):
         
         x,y,r,q = self.variables(coordinates)
 
-        x_magnitude = (((k_C) * q) / r ** 2 ) * (x/r)
-        y_magnitude = (((k_C) * q) / r ** 2 ) * (y/r)
+        if == 0:
+            return 0
+
+        else:
+            x_magnitude = (((k_C) * q) / r ** 2 ) * (x/r)
+            y_magnitude = (((k_C) * q) / r ** 2 ) * (y/r)
 
         efield = np.dstack((x_magnitude, y_magnitude))
 
@@ -37,7 +41,11 @@ class ElectrostaticPtCharge(FiducialElectrostaticSource):
 
         x,y,r,q = self.variables(coordinates)
 
-        electric_potential = (k_C * q) / r
+        if r = 0:
+            return 0
+        
+        else:
+            electric_potential = (k_C * q) / r
 
         return ScalarField(electric_potential)
 
