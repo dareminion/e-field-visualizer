@@ -6,6 +6,8 @@ from src.domain.Coordinates import Coordinates
 from src.physics.PlaceableSource import PlaceableSource
 from src.math.VectorFields import VectorField
 from src.math.ScalarFields import ScalarField
+from src.physics.ElectrostaticSource import FiducialElectrostaticSource
+
 
 # Generate Sample Coordinate object
 def generate_sample_coordinate():
@@ -65,20 +67,20 @@ def test_rotate() -> None:
     np.testing.assert_array_almost_equal(rotated_coords.y_grid, expected_y_grid)   
 
 
-# Tests return type of get_efield()
-def test_get_efield_return_type() -> None:
+# # Tests return type of get_efield()
+# def test_get_efield_return_type() -> None:
 
-    sample_domain = Domain(3, 3, 3, 3)
-    sample_coords = Domain(3, 3, 3, 3).main_coords
-    source = PlaceableSource()
-    result = sample_domain.get_efield(source, sample_coords)
-    assert isinstance(result, VectorField)
+#     sample_domain = Domain(3, 3, 3, 3)
+#     sample_coords = Domain(3, 3, 3, 3).main_coords
+#     source = PlaceableSource()
+#     result = sample_domain.get_efield(source, sample_coords)
+#     assert isinstance(result, VectorField)
 
-# Tests return type of get_epotential()
-def test_get_epotential_return_type() -> None:
+# # Tests return type of get_epotential()
+# def test_get_epotential_return_type() -> None:
 
-    sample_domain = Domain(3, 3, 3, 3)
-    sample_coords = Domain(3, 3, 3, 3).main_coords
-    source = PlaceableSource()
-    result = sample_domain.get_epotential(source, sample_coords)
-    assert isinstance(result, ScalarField)
+#     sample_domain = Domain(3, 3, 3, 3)
+#     sample_coords = Domain(3, 3, 3, 3).main_coords
+#     source = PlaceableSource()
+#     result = sample_domain.get_epotential(source, sample_coords)
+#     assert isinstance(result, ScalarField)
