@@ -55,10 +55,21 @@ class Domain:
     
     def get_net_efield(self):
         
-        net_efield = np.zeros((self.main_coords.shape[0], self.main_coords.shape[1], 2))
+        net_efield = np.zeros((*self.main_coords.shape[:2], 2))
 
         for source in self.sources:
             net_efield += self._get_efield(self.sources[source], self.main_coords)
+
+        return net_efield
+    
+    def get_net_epotential(self):
+    
+        net_epotential = np.zeros((*self.main_coords.shape[:2], 2))
+
+        for source in self.sources:
+            net_epotential += self._get_epotential(self.sources[source], self.main_coords)
+
+        return net_epotential
     
     def add_a_source(self, source: PlaceableSource, source_name: str) -> None:
         
