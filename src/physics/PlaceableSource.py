@@ -1,31 +1,34 @@
 import abc
+from typing import Dict
+from typing import Callable
+from src.math.VectorFields import VectorField
+from src.math.ScalarFields import ScalarField
+from src.domain.Coordinates import Coordinates
+from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 
 class PlaceableSource(abc.ABC):
 
-    placement_data = None
-    transformed_grid = None
-
-    def __init__(self, fiedsource, gridtransformer):
-        self.fieldsource = fieldsource
-        self._gridtransformer = gridtransformer
-
-    
-    def _gridtransform(self, grid):
-        if not self._transformed_grid:
-            self._transformed_grid = self._gridtransformer(g,self.placement_data)
-            return self._transfromed_grid
+    def __init__(self, source : FiducialElectrostaticSource , coordinate_transformer : Callable) -> None:
+        self._fieldsource = source
+        self._coordsTransformer = coordinate_transformer
+        self._placement_data = None
+        self._transformed_coords = None
 
 
-    def place(self, placement_data: dict):
-        self.placement_data = placement_data
-        self._transformed_grid = None
+    def place(self, placement_data: Dict [str, float]) -> None:
+        self._placement_data = placement_data
+        self._transformed_coords = None
 
-    def get_vector_field(grid):
-        tgrid = self._gridtransform(grid)
-        return self.fieldsource.get_vector_field(tgrid)
+    @abc.abstractmethod
+    def _coordstransform(self, coordinates: Coordinates) -> Coordinates:
+        pass
 
-    def get_scalar_field(grid):
-        tgrid = self._gridtransform(grid)
-        return self.fieldsource.get_scalar_field(self._transformed_grid)
 
-    
+    def get_vector_field(self, coords: Coordinates) -> VectorField:
+        tcoords = self._coordstransform(coords)
+        return self._fieldsource.get_vector_field(tcoords.x_grid, tcoords.y_grid)
+
+
+    def get_scalar_field(self, coords: Coordinates) -> ScalarField:
+        tcoords = self._coordstransform(coords)
+        return self._fieldsource.get_scalar_field(tcoords.x_grid, tcoords.y_grid)
