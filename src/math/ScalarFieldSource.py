@@ -8,6 +8,6 @@ class ScalarFieldSource(abc.ABC):
     '''
 
     @abc.abstractmethod
-    def get_scalar_field(x_coords : np.ndarray, y_coords : np.ndarray) -> ScalarField:
+    def get_scalar_field(self, x_coords : np.ndarray, y_coords : np.ndarray) -> ScalarField:
         pass
     
