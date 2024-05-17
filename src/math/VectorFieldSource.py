@@ -8,5 +8,5 @@ class VectorFieldSource(abc.ABC):
     '''
 
     @abc.abstractmethod
-    def get_vector_field(x_coords: np.ndarray, y_coords: np.ndarray) -> VectorField:
+    def get_vector_field(self, x_coords: np.ndarray, y_coords: np.ndarray) -> VectorField:
         pass
