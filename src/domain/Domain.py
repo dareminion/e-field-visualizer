@@ -21,7 +21,8 @@ class Domain:
         self.num_y_coords = num_y_coords
         
         self.main_coords = self._domain_setup()
-        
+
+        self.sources = {}
 
     def _domain_setup(self) -> tuple:
         
@@ -41,12 +42,46 @@ class Domain:
         # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
 
     # Returns VectorField
-    def get_efield(self, source: PlaceableSource, coords: Coordinates) -> VectorField:
+    @staticmethod
+    def get_efield(source: PlaceableSource, coords: Coordinates) -> VectorField:
         
         return source.get_vector_field(coords)
 
     # Returns ScalarField
-    def get_epotential(self, source: PlaceableSource, coords: Coordinates) -> ScalarField:
+    @staticmethod
+    def get_epotential(source: PlaceableSource, coords: Coordinates) -> ScalarField:
         
         return source.get_scalar_field(coords)
+    
+    def get_net_efield(self):
         
+        net_efield = np.zeros((*self.main_coords.shape[:2], 2))
+
+        for source in self.sources:
+            net_efield += self._get_efield(self.sources[source], self.main_coords)
+
+        return net_efield
+    
+    def get_net_epotential(self):
+    
+        net_epotential = np.zeros((*self.main_coords.shape[:2], 2))
+
+        for source in self.sources:
+            net_epotential += self._get_epotential(self.sources[source], self.main_coords)
+
+        return net_epotential
+    
+    def add_a_source(self, source: PlaceableSource, source_name: str) -> None:
+        
+        if source_name not in self.sources:
+            self.sources[source_name] = source
+        else:
+            raise KeyError("source already exists in domain")
+
+    def remove_a_source(self, source_name: str) -> None:
+        
+        if source_name in self.sources:
+            del self.sources[source_name]
+        else:
+            raise KeyError("source does not exist in domain")
+    
