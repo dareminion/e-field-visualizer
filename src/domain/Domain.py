@@ -21,6 +21,7 @@ class Domain:
         self.num_y_coords = num_y_coords
         
         self.main_coords = self._domain_setup()
+
         
 
     def _domain_setup(self) -> tuple:
@@ -41,12 +42,15 @@ class Domain:
         # grid_points = np.vstack([x_grid.ravel(), y_grid.ravel()]).T
 
     # Returns VectorField
-    def get_efield(self, source: PlaceableSource, coords: Coordinates) -> VectorField:
+    @staticmethod
+    def _get_efield(source: PlaceableSource, coords: Coordinates) -> VectorField:
         
         return source.get_vector_field(coords)
 
     # Returns ScalarField
-    def get_epotential(self, source: PlaceableSource, coords: Coordinates) -> ScalarField:
+    @staticmethod
+    def _get_epotential(source: PlaceableSource, coords: Coordinates) -> ScalarField:
         
         return source.get_scalar_field(coords)
         
+    
