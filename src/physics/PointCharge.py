@@ -8,38 +8,39 @@ import numpy as np
 
 k_C = 8.99 * (10 ** 9)
 
-class ElectrostaticPtCharge(FiducialElectrostaticSource):
+class PointCharge(FiducialElectrostaticSource):
 
-    def variables(self, coordinates: Coordinates) -> tuple:
+    def __init__(self, charge: float) -> None:
+        self.charge = charge
 
-        # x and y coordinates in numpy arrays
-        x = coordinates.x_grid
-        y = coordinates.y_grid
-
-        r = ((x ** 2) + (y ** 2)) ** 1/2
-
-        q = self.charge
-
-        return x,y,r,q
-
-    def electric_field(self, coordinates: Coordinates) -> VectorField:
+    
+    def efield(self, x: float, y: float) -> np.ndarray:
         
-        x,y,r,q = self.variables(coordinates)
+        r = ((x ** 2) + (y ** 2)) ** (.5)
 
-        x_magnitude = (((k_C) * q) / r ** 2 ) * (x/r)
-        y_magnitude = (((k_C) * q) / r ** 2 ) * (y/r)
+        if r == 0:
+            return np.array([0,0])
 
-        efield = np.dstack((x_magnitude, y_magnitude))
+        else:
+            x_magnitude = (((k_C) * self.charge) / r ** 2 ) * (x/r)
+            y_magnitude = (((k_C) * self.charge) / r ** 2 ) * (y/r)
 
-        return VectorField(efield)
+        efield = np.array([x_magnitude, y_magnitude])
 
-    def electric_potential(self, coordinates: Coordinates) -> ScalarField:
+        return efield
 
-        x,y,r,q = self.variables(coordinates)
+    
+    def epotential(self, x: float, y: float) -> float:
 
-        electric_potential = (k_C * q) / r
+        r = ((x ** 2) + (y ** 2)) ** (.5)
 
-        return ScalarField(electric_potential)
+        if r == 0:
+            return 0
+        
+        else:
+            electric_potential = (k_C * self.charge) / r
+
+        return electric_potential
 
 
         
