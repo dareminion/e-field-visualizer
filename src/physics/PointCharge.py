@@ -10,38 +10,27 @@ k_C = 8.99 * (10 ** 9)
 
 class ElectrostaticPtCharge(FiducialElectrostaticSource):
 
-    def variables(self, coordinates: Coordinates) -> tuple:
 
-        # x and y coordinates in numpy arrays
-        x = coordinates.x_grid
-        y = coordinates.y_grid
-
+    def electric_field(self, x, y):
+        
         r = ((x ** 2) + (y ** 2)) ** 1/2
 
-        q = self.charge
-
-        return x,y,r,q
-
-    def electric_field(self, coordinates: Coordinates) -> VectorField:
-        
-        x,y,r,q = self.variables(coordinates)
-
-        if == 0:
+        if r == 0:
             return 0
 
         else:
             x_magnitude = (((k_C) * q) / r ** 2 ) * (x/r)
             y_magnitude = (((k_C) * q) / r ** 2 ) * (y/r)
 
-        efield = np.dstack((x_magnitude, y_magnitude))
+        efield = np.arry((x_magnitude, y_magnitude))
 
         return VectorField(efield)
 
-    def electric_potential(self, coordinates: Coordinates) -> ScalarField:
+    def electric_potential(self, x, y):
 
-        x,y,r,q = self.variables(coordinates)
+        r = ((x ** 2) + (y ** 2)) ** 1/2
 
-        if r = 0:
+        if r == 0:
             return 0
         
         else:
