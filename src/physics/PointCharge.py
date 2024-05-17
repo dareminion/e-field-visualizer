@@ -6,7 +6,8 @@ from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 import scipy.constants as const
 import numpy as np
 
-k_C = 8.99 * (10 ** 9)
+k_C = const.k
+
 
 class PointCharge(FiducialElectrostaticSource):
 
@@ -16,14 +17,23 @@ class PointCharge(FiducialElectrostaticSource):
     
     def efield(self, x: float, y: float) -> np.ndarray:
         
+        
+        
         r = ((x ** 2) + (y ** 2)) ** (.5)
 
-        if r == 0:
-            return np.array([0,0])
+        if isinstance(r, np.ndarray):
+            r = np.where(r == 0, np.nan, r) 
 
         else:
-            x_magnitude = (((k_C) * self.charge) / r ** 2 ) * (x/r)
-            y_magnitude = (((k_C) * self.charge) / r ** 2 ) * (y/r)
+            if r == 0:
+                return 0.0
+
+        nonzero_mask = (r != 0)
+
+        mag_factor = k_C * self.charge / r ** 3
+
+        x_magnitude = np.where(nonzero_mask, mag_factor * x, np.nan)
+        y_magnitude = np.where(nonzero_mask, mag_factor * y, np.nan)
 
         efield = np.array([x_magnitude, y_magnitude])
 
@@ -33,12 +43,15 @@ class PointCharge(FiducialElectrostaticSource):
     def epotential(self, x: float, y: float) -> float:
 
         r = ((x ** 2) + (y ** 2)) ** (.5)
-
-        if r == 0:
-            return 0
         
+        if isinstance(r, np.ndarray):
+            r = np.where(r == 0, np.nan, r) 
+
         else:
-            electric_potential = (k_C * self.charge) / r
+            if r == 0:
+                return np.nan
+
+        electric_potential = (k_C * self.charge) / r
 
         return electric_potential
 
