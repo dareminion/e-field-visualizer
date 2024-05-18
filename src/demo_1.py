@@ -16,7 +16,7 @@ def main():
     # Create a factory for point sources
     factory = PointSourceFactory()
 
-    # Create a placeable source with a specified parameter (e.g., intensity)
+    # Create a placeable source with a specified parameter
     source = factory.create_placeable_source(10)
     
     # Place the source in the domain using the placement data
