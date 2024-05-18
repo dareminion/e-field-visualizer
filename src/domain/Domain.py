@@ -58,7 +58,7 @@ class Domain:
         net_efield = np.zeros((*self.main_coords.shape[:2], 2))
 
         for source in self.sources:
-            net_efield += self._get_efield(self.sources[source], self.main_coords)
+            net_efield += self.get_efield(self.sources[source], self.main_coords)
 
         return net_efield
     
@@ -67,7 +67,7 @@ class Domain:
         net_epotential = np.zeros((*self.main_coords.shape[:2], 2))
 
         for source in self.sources:
-            net_epotential += self._get_epotential(self.sources[source], self.main_coords)
+            net_epotential += self.get_epotential(self.sources[source], self.main_coords)
 
         return net_epotential
     
