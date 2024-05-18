@@ -1,19 +1,8 @@
-'''
-Once class files are created and PR'd into main repo, more imports will be defined
-'''
-
-import pytest
-import numpy as np
-from src.math.VectorFields import VectorField
-from src.factories.PointSourceFactory import PointSourceFactory
-from src.physics.PlaceableSource import PlaceableSource
 from src.domain.Domain import Domain
+from src.math.VectorFields import VectorField
+from src.visuals.Visualizer import Visualizer
+from src.factories.PointSourceFactory import PointSourceFactory
 
-
-
-'''
-test_workflows is just a temporary test for the workflows test to pass when a PR occurs
-'''
 def test_workflows():
     assert True
 
@@ -33,6 +22,32 @@ def test_FactorytoVectorField():
 
     assert isinstance(vector_field, VectorField)
 
-'''
-Small Integration Tests will be here after class creatio is complete
-'''
+def test_full_run():
+    def partial_demo():
+        demo_domain = Domain(100, 100, 50, 50)
+
+        placement_data = {'x': -10, 'y': 20}
+
+        factory = PointSourceFactory()
+
+        source = factory.create_placeable_source(10)
+        
+        source.place(placement_data)
+
+        demo_domain.add_a_source(source, 'source 1')
+
+        vector_field = demo_domain.get_efield(source, demo_domain.main_coords)
+        
+        scalar_field = demo_domain.get_epotential(source, demo_domain.main_coords)
+
+        visualizer = Visualizer(demo_domain)
+        
+        visualizer.place_source(source)
+
+        visualizer.plot_scalar_field(scalar_field._field, 'heatmap')
+        
+        visualizer.plot_vector_field(vector_field._field, 'quiver')
+
+        return 0
+    if partial_demo() == 0:
+        assert True
