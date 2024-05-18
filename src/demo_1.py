@@ -1,6 +1,6 @@
-from domain.Domain import Domain
-from factories.PointSourceFactory import PointSourceFactory
-from visuals.Visualizer import Visualizer
+from src.domain.Domain import Domain
+from src.factories.PointSourceFactory import PointSourceFactory
+from src.visuals.Visualizer import Visualizer
 
 def main():
     """
@@ -44,7 +44,7 @@ def main():
     visualizer.plot_vector_field(vector_field._field, 'quiver')
 
     # Show the visualizations
-    visualizer.show()
+    #visualizer.show()
 
 # Run the main function
 main()
