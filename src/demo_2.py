@@ -1,6 +1,6 @@
-from domain.Domain import Domain
-from factories.PointSourceFactory import PointSourceFactory
-from visuals.Visualizer import Visualizer
+from src.domain.Domain import Domain
+from src.factories.PointSourceFactory import PointSourceFactory
+from src.visuals.Visualizer import Visualizer
 
 def main():
     """
