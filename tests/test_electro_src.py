@@ -1,16 +1,13 @@
 import pytest
-from src.math.ScalarFields import ScalarField
-from src.math.VectorFields import VectorField
-from src.math.ScalarFieldSource import ScalarFieldSource
-from src.math.VectorFieldSource import VectorFieldSource
-from src.domain.Coordinates import Coordinates
-from src.physics.ElectrostaticSource import FiducialElectrostaticSource
-from src.physics.PointCharge import PointCharge
-from src.domain.Domain import Domain
 import numpy as np
 import scipy.constants as const
-from pprint import pprint
-k_C = const.k
+from src.domain.Domain import Domain
+from src.math.ScalarFields import ScalarField
+from src.math.VectorFields import VectorField
+from src.physics.PointCharge import PointCharge
+
+
+k_C = 1 / (4 * const.pi * const.epsilon_0)
 
 
 @pytest.fixture
@@ -73,6 +70,5 @@ def test_get_scalar_field_value(generate_pt_source):
     epotential4 = (k_C * 10) / (2 ** (.5))
     expected_output =np.array([[epotential1, epotential2],
                         [epotential3, epotential4]])
-    pprint(test_epotential_output._field)
     assert np.allclose(expected_output, test_epotential_output._field)
     

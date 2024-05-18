@@ -1,12 +1,7 @@
 # Testing Coordinates.py
-import pytest
 import numpy as np
 from src.domain.Domain import Domain
 from src.domain.Coordinates import Coordinates
-from src.physics.PlaceableSource import PlaceableSource
-from src.math.VectorFields import VectorField
-from src.math.ScalarFields import ScalarField
-from src.physics.ElectrostaticSource import FiducialElectrostaticSource
 
 
 # Generate Sample Coordinate object

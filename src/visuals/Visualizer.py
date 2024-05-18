@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import quiver, streamplot, pcolormesh, contour
 from src.domain.Domain import Domain
-from src.physics.PlaceableSource import PlaceableSource
 from src.physics.PointCharge import PointCharge
+from src.physics.PlaceableSource import PlaceableSource
+from matplotlib.pyplot import quiver, streamplot, pcolormesh, contour
 
 class Visualizer:
 

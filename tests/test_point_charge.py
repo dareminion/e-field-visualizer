@@ -8,7 +8,7 @@ from src.domain.Domain import Domain
 import numpy as np
 import scipy.constants as const
 
-k_C = const.k
+k_C = 1 / (4 * const.pi * const.epsilon_0)
 
 @pytest.fixture
 def generate_pt_source():
