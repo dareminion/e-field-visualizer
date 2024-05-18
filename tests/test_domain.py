@@ -1,11 +1,11 @@
 # Testing Domain.py
 import pytest
-import numpy as np
 from src.domain.Domain import Domain
-from src.domain.Coordinates import Coordinates
+
 
 # Generate Sample Domain
-def generate_sample_domain(x_span, y_span, num_x_coords, num_y_coords):
+@pytest.fixture
+def generate_sample_domain():
 
     return Domain(7,7,7,7)
 
@@ -14,10 +14,10 @@ def test_imports():
     assert True
 
 # Check if span of x and y values is correct:
-def test_check_span():
+def test_check_span(generate_sample_domain):
     
     # Generates a domain
-    domain = generate_sample_domain(7, 7, 7, 7)
+    domain = generate_sample_domain
 
     intended_x_span = domain.x_span
     intended_y_span = domain.y_span
@@ -31,10 +31,10 @@ def test_check_span():
     assert len(y_grid) == intended_y_span
 
 # Check if the grid size is correct:
-def test_check_grid_size():
+def test_check_grid_size(generate_sample_domain):
 
     # Generates a domain
-    domain = generate_sample_domain(7, 7, 7, 7)
+    domain = generate_sample_domain
 
     intended_domain_size = (7, 7)
 

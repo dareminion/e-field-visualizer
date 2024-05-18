@@ -1,8 +1,6 @@
-from src.math.Fields import Field
+import numpy as np
 from src.math.ScalarFields import ScalarField
 from src.math.VectorFields import VectorField
-import numpy as np
-import pytest
 
 
 def test_import():

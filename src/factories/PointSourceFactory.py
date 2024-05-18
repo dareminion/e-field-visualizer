@@ -1,8 +1,9 @@
 from typing import Callable, Dict
 from src.domain.Coordinates import Coordinates
+from src.physics.PointCharge import PointCharge
 from src.physics.PlaceableSource import PlaceableSource
 from src.factories.PlaceableSourceFactory import PlaceableSourceFactory
-from src.physics.PointCharge import PointCharge
+
 
 class PointSourceFactory(PlaceableSourceFactory):
     
