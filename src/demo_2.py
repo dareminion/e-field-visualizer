@@ -44,7 +44,7 @@ def main():
     visualizer.plot_vector_field(vector_field._field, 'fieldlines')
 
     # Show the visualizations
-    visualizer.show()
+    #visualizer.show()
 
 # Run the main function
 main()
