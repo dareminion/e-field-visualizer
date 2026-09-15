@@ -140,6 +140,7 @@ The test suite covers core functionality including mathematical operations, elec
 
 ## Running the Project
 
+This project requires Python with NumPy and Matplotlib installed.
 The included demonstrations can be run from the project root using Python's module execution:
 
 ```bash
